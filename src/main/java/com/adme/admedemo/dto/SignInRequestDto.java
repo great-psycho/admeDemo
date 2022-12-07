@@ -11,7 +11,7 @@ import lombok.Setter;
 public class SignInRequestDto {
 
     @ApiModelProperty(value = "아이디")
-    private String id;
+    private String uid;
 
     @ApiModelProperty(value = "비밀번호")
     private String password;

@@ -7,8 +7,15 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -39,28 +46,30 @@ public class SecurityConfiguration {
 //                  .antMatchers("/anonymous*").anonymous() // 인증되지 않은 사용자도 접근 가능
 //                  .anyRequest().authenticated(); // 어떤 요청에도 보안검사를 한다.
                     .antMatchers("/sign-api/sign-in", "/sign-api/sign-up", "/sign-api/exception").permitAll() // 권한 허용 URL 설정
-                    .antMatchers("/v2/api-docs", "/swagger-resources", "/swagger*/**", "/swagger-ui.html", "/webjars/**", "/swagger/**","/sign-api/cookie").permitAll() // 권한 허용 URL 설정
+                    .antMatchers("/v2/api-docs", "/swagger-resources", "/swagger*/**", "/swagger-ui.html", "/webjars/**", "/swagger/**","/sign-api/cookie","/test","/tenseconds/**","/login").permitAll() // 권한 허용 URL 설정
                     .antMatchers(HttpMethod.GET, "/tenseconds/**").permitAll() // tenseconds 로 시작하는 GET 요청 허용
                     .antMatchers("**exception**", "/sign-api/exception").permitAll() // 'exception' 단어가 들어간 경로는 모두 허용
+                    .antMatchers("/static/**","/js/**").permitAll() // 'exception' 단어가 들어간 경로는 모두 허용
                     .anyRequest().hasRole("ADMIN") // 기타 요청은 인증 권한을 가진 사용자에게 허용
                 .and() // 로그인 처리
                     .formLogin()
                     .loginPage("/login") // 사용자 정의 로그인 페이지
-//                    .loginProcessingUrl("/perform_login") // 사용자 이름과 암호를 제출할 URL = 인증 처리를 하는 URL을 설정
-                    .defaultSuccessUrl("/tenseconds") // 정상적으로 인증 성공 했을 경우 이동하는 페이지
+                    .defaultSuccessUrl("/",true) // 정상적으로 인증 성공 했을 경우 이동하는 페이지
+//                    .loginProcessingUrl("/login_prac") // 사용자 이름과 암호를 제출할 URL = 인증 처리를 하는 URL을 설정,form action Url
+                    .defaultSuccessUrl("/login") // 정상적으로 인증 성공 했을 경우 이동하는 페이지
                     .failureUrl("/login") // 로그인 실패 후 방문 페이지
 //                    .usernameParameter("username")//아이디 파라미터명 설정
 //                    .passwordParameter("password")//패스워드 파라미터명 설정
 //                    .successHandler(new CustomAuthenticationSuccessHandler("/main")) // 정상적인증 성공 후 별도의 처리가 필요한경우
 //                    .failureHandler(authenticationFailureHandler("/login_fail")) // 실패 후 별도의 처리가 필요한경우
-                    .permitAll() //사용자 정의 로그인 페이지 접근 권한 승인
+//                    .permitAll() //사용자 정의 로그인 페이지 접근 권한 승인
                 .and() // 로그아웃 처리
                     .logout()
-//                    .logoutUrl("/logout") // 로그아웃 처리 URL
-//                    .logoutSuccessUrl("/login") // 로그아웃 처리 후 이동할 URL
+                    .logoutUrl("/user/logout") // 로그아웃 처리 URL
+                    .logoutSuccessUrl("/") // 로그아웃 처리 후 이동할 URL
 //                    .deleteCookies("JSESSIONID","remember-me") // 쿠키 삭제
 //                    .logoutSuccessHandler(new LogoutSuccessHandler()) // 로그아웃 성공 후 핸들러
-                    .deleteCookies("CookieId") // 쿠키삭제
+                    .deleteCookies("TokenCookie") // 쿠키삭제
 //                    .invalidateHttpSession(true) // 브라우저가 완전히 종료되면 로그인 정보를 지운다.
                     .permitAll()
                 .and()

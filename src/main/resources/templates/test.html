@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+<div class="upload">
+    <div class="upload-container">
+        <div class="upload-box">
+            <input type="file" name="uploadFile" accept="video/mp4"> <!-- Mp4 파일로 규정 -->
+        </div>
+        <div class="upload-title">
+            <input class="upload-title-content" placeholder="제목을 입력하세요." type="text" required/>
+        </div>
+        <div class="upload-content">
+            <textarea class="upload-content-content" placeholder="본문내용을 입력하세요." type="text" required></textarea>
+        </div>
+        <div class="button-box">
+            <button name="submit" type="submit" onclick="saveArticle2()" class="check-button">완료</button>
+        </div>
+    </div>
+</div>
+<script src="/js/test.js"></script>
+</body>
+</html>

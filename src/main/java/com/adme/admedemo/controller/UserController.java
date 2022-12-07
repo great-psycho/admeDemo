@@ -28,7 +28,7 @@ public class UserController {
     @Autowired
     public UserController(SignService signService) {
         this.signService = signService;
-    }
+    }//
 
     @PostMapping(value = "/sign-up")
     public SignUpResultDto signUp(@RequestBody @ApiParam(value = "회원가입 정보", required = true) SignUpRequestDto signUpRequestDto) {
@@ -42,19 +42,19 @@ public class UserController {
     }
 
     @PostMapping(value = "/sign-in")
-    public SignInResultDto signIn(@RequestBody @ApiParam(value = "로그인 정보", required = true) SignInRequestDto signInRequestDto, HttpServletResponse response) throws RuntimeException {
-        log.info("[signIn] 로그인을 시도하고 있습니다. id : {}, pw : ****", signInRequestDto.getId());
+    public SignInResultDto signIn(@RequestBody @ApiParam(value = "로그인 정보", required = true)
+                                              SignInRequestDto signInRequestDto, HttpServletResponse response) throws RuntimeException {
+        log.info("[signIn] 로그인을 시도하고 있습니다. id : {}, pw : ****", signInRequestDto.getUid());
 
         SignInResultDto signInResultDto = signService.signIn(signInRequestDto);
 
         if (signInResultDto.getCode() == 0) {
             log.info("[signIn] 정상적으로 로그인되었습니다. id : {}, token : {}",
-                    signInRequestDto.getId(), signInResultDto.getToken());
+                    signInRequestDto.getUid(), signInResultDto.getToken());
         }
 
         log.info("[getSignInResult] 쿠키 생성"); //쿠키에 시간 정보를 주지 않으면 세션 쿠키가 된다. (브라우저 종료시 모두 종료)
-        Cookie idCookie = new Cookie("CookieId", signInRequestDto.getId());
-        idCookie.setMaxAge(24 * 60 * 60); // 24시간 동안 유지
+        Cookie idCookie = new Cookie("TokenCookie", signInResultDto.getToken());
         idCookie.setPath("/"); // 모든 경로에서 접근 가능
         response.addCookie(idCookie);
 
@@ -65,8 +65,8 @@ public class UserController {
     public void cookieList(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         for (Cookie c : cookies) {
-            log.info("[getCookie]CookieName"+c.getName());
-            log.info("[getCookie]CookieValue"+c.getValue()+"\n");
+            log.info("[getCookie]CookieName :" + c.getName());
+            log.info("[getCookie]CookieValue :" + c.getValue()+"\n");
         }
     }
 

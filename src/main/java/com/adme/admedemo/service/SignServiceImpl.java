@@ -88,11 +88,12 @@ public class SignServiceImpl implements SignService {
     public SignInResultDto signIn(SignInRequestDto signInRequestDto) throws RuntimeException {
         log.info("[getSignInResult] signDataHandler 로 회원 정보 요청");
 
-        User user = userRepository.getByUid(signInRequestDto.getId());
-        log.info("[getSignInResult] Id : {}", signInRequestDto.getId());
+        User user = userRepository.getByUid(signInRequestDto.getUid());
+        log.info("[getSignInResult] Id : {}", signInRequestDto.getUid());
 
         log.info("[getSignInResult] 패스워드 비교 수행");
         if (!passwordEncoder.matches(signInRequestDto.getPassword(), user.getPassword())) {
+            log.info("[getSignInResult] 패스워드 불일치");
             throw new RuntimeException();
         }
         log.info("[getSignInResult] 패스워드 일치");

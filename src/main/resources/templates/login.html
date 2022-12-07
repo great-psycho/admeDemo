@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <meta charset="UTF-8">
+    <title>LoginTest</title>
+</head>
+<body>
+<div class="container">
+    <div id="c2" class="c2">
+        <form class="signup">
+            <h1 class="signup1">SIGN UP</h1>
+            <div class="warningMsg" id="usernameMsg">아이디</div>
+            <input name="username" type="text" placeholder="아이디*" id="signUpNickname"/>
+
+            <div class="warningMsg" id="passwordCheckMsg">비밀번호</div>
+            <input name="password" type="password" placeholder="비밀번호*" id="signUpPassword"/>
+
+            <div class="warningMsg" id="nicknameMsg">이름</div>
+            <input name="nickname" type="text" placeholder="이름*" id="username"/>
+
+            <div class="warningMsg" id="role">권한</div>
+            <input name="nickname" type="checkbox" placeholder="권한 체크*" id="userRoleCheck"/>
+            <input name="nickname" type="text" placeholder="관리자 암호*" id="adminToken"/>
+
+            <br><br>
+            <button type="button" onclick="signUp1()">Sign Up</button>
+        </form>
+
+        <form class="signin">
+            <h1 class="signIn1">SIGN IN</h1>
+            <input name="uid" type="text" placeholder="아이디*" id="signInNickname"/>
+
+            <br><br>
+            <input name="password" type="password" placeholder="비밀번호*" id="signInPassword"/>
+
+            <br><br>
+            <button type="button" id="login-id-submit" onclick="signIn1()">Sign In</button>
+<!--            <button id="login-id-submit">로그인</button>-->
+
+            <br><br><br><br>
+        </form>
+    </div>
+</div>
+
+<script src="/js/loginTest.js"></script>
+</body>
+</html>

@@ -8,17 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 @Controller
 @Slf4j
-public class VideoHtmlController {
-
-//    @GetMapping("/tenseconds")
-//    public void tenSeconds() {
-//        log.info("TenSeconds Page");
-//    }
-
-    @GetMapping("/test")
-    public String View_test(){
-        log.info("[test] View test page");
-        return "test";
+public class SignHtmlController {
+    @GetMapping("/login")
+    public String login(){
+        log.info("View test page");
+        return "login";
     }
-
 }
