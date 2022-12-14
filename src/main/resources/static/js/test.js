@@ -1,3 +1,7 @@
+$(document).ready(function(){
+    getSignList();
+});
+
 function saveArticle2() {
     // 업로드 후 초기화용 변수
     let cloneObj = $(".upload-box").clone();
@@ -12,7 +16,7 @@ function saveArticle2() {
 
     let formData = new FormData();
 
-    formData.append("sideData", new Blob([JSON.stringify(data)], {type: "application/json"}))
+    formData.append("sideData", new Blob([JSON.stringify(data)], {type: "application/json"}));
 
     checkExtension(videoFile.size);
     formData.append("videoFile", videoFile[0]);
@@ -43,6 +47,39 @@ function checkExtension(fileSize){
         return false;
     }
     return true;
+}
+
+// function getSignList(){
+//     let cookie = getCookie("TokenCookie")
+//
+//     $.ajax({
+//         type:"GET",
+//         url:'/sign-api/sign-on',
+//         data:{},
+//         headers: {"X-AUTH-TOKEN": cookie},
+//         success: function (response) {
+//             for (let i=0; i<response.length; i++){
+//                 console.log(response)
+//             }
+//         }
+//     })
+// }
+
+function getCookie(key){
+    let cookieKey = key +"=";
+    let result = "";
+    let cookieArr = document.cookie.split(";");
+
+    for (let i=0; i<cookieArr.length; i++){
+        if (cookieArr[i][0] === " "){
+            cookieArr[i] = cookieArr[i].substring(1);
+        }
+        if(cookieArr[i].indexOf(cookieKey) === 0) {
+            result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
+            return result;
+        }
+    }
+    return result;
 }
 
 // //파일 저장

@@ -27,7 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain) throws ServletException, IOException {
         // servletRequest 에서 token 추출
         String token = jwtTokenProvider.resolveToken(servletRequest);
-        log.info("[doFilterInternal] token 값 추출 완료. token : {}", token);
+        log.info("[doFilterInternal] token 값 추출 완료. token :" + token);
 
         log.info("[dofilterInternal] token 값 유효성 체크 시작");
         // token 이 유효하다면 Authentication 객체를 생성해서 SecurityContextHolder 에 추가
@@ -36,6 +36,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             log.info("[doFilterInternal] token 값 유효성 체크 완료");
         }
+        else {
+            log.info("[doFilterInternal] 유효한 JWT 토큰이 없습니다, uri: {}", servletRequest.getRequestURL());
+        }
+
+//        if(servletRequest.getRequestURI().startsWith("/sign-api/sign-in")){
+//            servletResponse.sendRedirect("http://localhost:8080/signOn");
+//            return;
+//        }
 
         // 요청 정보가 매칭되지 않을경우 동작
         filterChain.doFilter(servletRequest, servletResponse);

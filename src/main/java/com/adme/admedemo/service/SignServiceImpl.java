@@ -8,6 +8,7 @@ import com.adme.admedemo.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,7 @@ public class SignServiceImpl implements SignService {
             User found = userRepository.findByUid(uid);
 
             if (found.getUid().equals(signUpRequestDto.getUid())){
-                throw new IllegalArgumentException("중복된 사용자 ID 가 존재합니다.");
+                throw new IllegalArgumentException("[getSignUpResult] 중복된 사용자 ID 가 존재합니다.");
             }
             log.info("[getSignUpResult] ID 중복 확인 완료");
         }
@@ -110,6 +111,9 @@ public class SignServiceImpl implements SignService {
                 .role_check(authority)
                 .token(jwtTokenProvider.createToken(user.getUid(), user.getRoles()))
                 .build();
+//
+//        HttpHeaders httpHeaders = new HttpHeaders();
+//        httpHeaders.add("AUTHORIZATION_HEADER","Bearer" + token);
 
         log.info("[getSignInResult] SignInResultDto 객체에 값 주입");
         setSuccessResult(signInResultDto);

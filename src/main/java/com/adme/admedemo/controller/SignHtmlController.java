@@ -9,9 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @Slf4j
 public class SignHtmlController {
-    @GetMapping("/login")
+
+    @GetMapping("/user/login")
     public String login(){
-        log.info("View test page");
         return "login";
+    }
+
+    @GetMapping("/signOn")
+    public String logon(){
+        return "loginOn";
     }
 }

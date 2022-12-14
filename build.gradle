@@ -29,6 +29,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     // 스프링 시큐리티
+    implementation 'org.springframework.security:spring-security-saml2-service-provider:5.7.3'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'io.jsonwebtoken:jjwt:0.9.1' // jwt
 

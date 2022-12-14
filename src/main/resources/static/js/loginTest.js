@@ -32,9 +32,6 @@ function signIn1(){
     let password = $("#signInPassword").val();
 
     let data = {"uid":nickname, "password":password}
-    // let formData = new FormData();
-    // formData.append("id", nickname);
-    // formData.append("password", password);
 
     //ajax 를 통해 controller 와 연결
     $.ajax({
@@ -42,14 +39,13 @@ function signIn1(){
         url: '/sign-api/sign-in',
         data: JSON.stringify(data),
         dataType: "json",
+        // async: false,
         contentType: 'application/json',
-        false: function (response){
-            console.log(response);
-            alert("[로그인 실패]\n 아이디, 비밀번호를 확인해주세요.")
-        },
         success: function (response) {
             console.log(response);
             alert("로그인 완료");
+            location.href="/signOn";
+            // location.href="/test";
         }
     });
 }
