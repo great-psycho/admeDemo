@@ -18,6 +18,10 @@ function getSignList(){
     })
 }
 
+function logout(){
+    location.href="/user/logout";
+}
+
 function getCookie(key){
     let cookieKey = key +"=";
     let result = "";

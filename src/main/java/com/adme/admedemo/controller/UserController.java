@@ -32,7 +32,7 @@ public class UserController {
     @Autowired
     public UserController(SignService signService) {
         this.signService = signService;
-    }//
+    }
 
     @PostMapping(value = "/sign-up")
     public SignUpResultDto signUp(@RequestBody @ApiParam(value = "회원가입 정보", required = true) SignUpRequestDto signUpRequestDto) {
@@ -69,7 +69,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/sign-on")
-    public User signOn(@AuthenticationPrincipal User user, HttpServletResponse response) throws IOException {
+    public User signOn(@AuthenticationPrincipal User user) throws IOException {
         log.info("[signOn] 현재 로그인 유저: " + user.getUsername());
         log.info("[signOn] 현재 로그인 권한: " + user.getRoles());
         return user;
