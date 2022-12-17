@@ -10,6 +10,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.Filter;
+
 
 @Configuration
 @EnableWebSecurity
@@ -37,12 +39,12 @@ public class SecurityConfiguration {
                     .authorizeRequests() // 요청에 의한 보안검사 시작
                     .antMatchers("/sign-api/sign-in", "/sign-api/sign-up", "/sign-api/exception").permitAll() // 권한 허용 URL 설정
                     .antMatchers("/v2/api-docs", "/swagger-resources", "/swagger*/**", "/swagger-ui.html", "/webjars/**", "/swagger/**").permitAll() // 권한 허용 URL 설정
-                    .antMatchers("/favicon.ico","/sign-api/cookie","/sign-api/cookie","/tenseconds/**", "/signOn","/sign-api/sign-on", "/sign-api/sign-redirect").permitAll()
+                    .antMatchers("/favicon.ico","/tenseconds/**", "/signOn", "/test").permitAll()
                     .antMatchers(HttpMethod.GET, "/tenseconds/**").permitAll() // tenseconds 로 시작하는 GET 요청 허용
                     .antMatchers("**exception**", "/sign-api/exception").permitAll() // 'exception' 단어가 들어간 경로는 모두 허용
                     .antMatchers("/static/**","/js/**").permitAll() // 접근 허용
 //                    .antMatchers("/test").authenticated() // 이증된 사용자만 접근 가능
-                    .antMatchers("/tenseconds/video","/test").hasRole("USER") // USER 접근 가능
+                    .antMatchers("/tenseconds/video","/sign-api/cookie","/ten/test").hasRole("USER") // USER 접근 가능
                     .anyRequest().hasRole("ADMIN") // 기타 요청은 인증 권한을 가진 사용자에게 허용
                 .and() // 로그아웃 처리
                     .logout()

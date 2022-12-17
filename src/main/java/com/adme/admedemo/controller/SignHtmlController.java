@@ -17,6 +17,7 @@ public class SignHtmlController {
 
     @GetMapping("/signOn")
     public String logon(){
+        log.info("===signOn Page===");
         return "loginOn";
     }
 }

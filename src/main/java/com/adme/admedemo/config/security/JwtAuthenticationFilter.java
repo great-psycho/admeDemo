@@ -40,11 +40,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             log.info("[doFilterInternal] 유효한 JWT 토큰이 없습니다, uri: {}", servletRequest.getRequestURL());
         }
 
-//        if(servletRequest.getRequestURI().startsWith("/sign-api/sign-in")){
-//            servletResponse.sendRedirect("http://localhost:8080/signOn");
-//            return;
-//        }
-
         // 요청 정보가 매칭되지 않을경우 동작
         filterChain.doFilter(servletRequest, servletResponse);
     }

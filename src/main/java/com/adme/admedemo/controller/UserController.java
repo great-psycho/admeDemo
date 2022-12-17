@@ -59,17 +59,19 @@ public class UserController {
         log.info("[getSignInResult] 쿠키 생성"); // 쿠키에 시간 정보를 주지 않으면 세션 쿠키가 된다. (브라우저 종료시 모두 종료)
         Cookie idCookie = new Cookie("TokenCookie", signInResultDto.getToken());
         idCookie.setPath("/"); // 모든 경로에서 접근 가능
+        idCookie.setDomain("localhost");
+        idCookie.setMaxAge(24 * 60 * 60);
+        idCookie.setSecure(true);
+//        idCookie.setHttpOnly(true);
         response.addCookie(idCookie);
-        log.info("[getSignInResult] 쿠키 생성 완료");
 
-//        log.info("[CustomAuthenticationSuccessHandler] redirect 동작?");
-//        response.sendRedirect("/signOn");
+        log.info("[getSignInResult] 쿠키 생성 완료");
 
         return signInResultDto;
     }
 
-    @GetMapping(value = "/sign-on")
-    public User signOn(@AuthenticationPrincipal User user, HttpServletResponse response) throws IOException {
+    @GetMapping(value = "/cookie")
+    public User signOn(@AuthenticationPrincipal User user) throws IOException {
         log.info("[signOn] 현재 로그인 유저: " + user.getUsername());
         log.info("[signOn] 현재 로그인 권한: " + user.getRoles());
         return user;
@@ -92,18 +94,21 @@ public class UserController {
 //        idCookie.setPath("/"); // 모든 경로에서 접근 가능
 //        response.addCookie(idCookie);
 //        log.info("[getSignInResult] 쿠키 생성 완료");
+
+////        log.info("[CustomAuthenticationSuccessHandler] redirect 동작?");
+////        response.sendRedirect("/signOn");
 //
 //        return signInResultDto;
 //    }
 
-    @PostMapping(value = "/cookie")
-    public void cookieList(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        for (Cookie c : cookies) {
-            log.info("[getCookie]CookieName :" + c.getName());
-            log.info("[getCookie]CookieValue :" + c.getValue()+"\n");
-        }
-    }
+//    @PostMapping(value = "/cookie")
+//    public void cookieList(HttpServletRequest request) {
+//        Cookie[] cookies = request.getCookies();
+//        for (Cookie c : cookies) {
+//            log.info("[getCookie]CookieName :" + c.getName());
+//            log.info("[getCookie]CookieValue :" + c.getValue()+"\n");
+//        }
+//    }
 
     @GetMapping(value = "/exception")
     public void exceptionTest() throws RuntimeException {

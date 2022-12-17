@@ -24,7 +24,7 @@ function saveArticle2() {
     //ajax 를 통해 controller 와 연결
     $.ajax({
         type: "POST",
-        url: '/tenseconds/test',
+        url: '/tesnseconds/ten/test',
         contentType: false,
         processData: false,
         data: formData,
@@ -54,7 +54,7 @@ function checkExtension(fileSize){
 //
 //     $.ajax({
 //         type:"GET",
-//         url:'/sign-api/sign-on',
+//         url:'/sign-api/cookie',
 //         data:{},
 //         headers: {"X-AUTH-TOKEN": cookie},
 //         success: function (response) {

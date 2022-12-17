@@ -4,10 +4,14 @@ $(document).ready(function(){
 
 function getSignList(){
     let cookie = getCookie("TokenCookie");
+    let cookiebrow = document.cookie;
+    console.log("cookiebrow = "+cookiebrow);
+    console.log("cookiebrow Token = "+ cookiebrow);
+
 
     $.ajax({
         type:"GET",
-        url:'/sign-api/sign-on',
+        url:'/sign-api/cookie',
         data:{},
         headers: {"X-AUTH-TOKEN": cookie},
         success: function (response) {
@@ -33,4 +37,12 @@ function getCookie(key){
         }
     }
     return result;
+}
+
+function logOut(){
+    location.href="/user/logout";
+}
+
+function testPage(){
+    location.href="/test";
 }

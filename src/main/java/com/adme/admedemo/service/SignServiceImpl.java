@@ -88,8 +88,15 @@ public class SignServiceImpl implements SignService {
     @Override
     public SignInResultDto signIn(SignInRequestDto signInRequestDto) throws RuntimeException {
         log.info("[getSignInResult] signDataHandler 로 회원 정보 요청");
+        User user;
 
-        User user = userRepository.getByUid(signInRequestDto.getUid());
+        if (userRepository.findByUid(signInRequestDto.getUid()) == null) {
+            log.info("[getSignInResult] 아이디가 존재하지 않습니다.");
+            throw new RuntimeException();
+        }else {
+            user = userRepository.getByUid(signInRequestDto.getUid());
+        }
+
         log.info("[getSignInResult] Id : {}", signInRequestDto.getUid());
 
         log.info("[getSignInResult] 패스워드 비교 수행");

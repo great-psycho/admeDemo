@@ -12,6 +12,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         System.out.println("[AuthenticationSuccessHandler] authentication : " + authentication.getName());
-        response.sendRedirect("/test"); // 인증이 성공한 후에는 root로 이동
+        response.sendRedirect("/signOn"); // 인증이 성공한 후에는 root로 이동
     }
 }
